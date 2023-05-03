@@ -200,7 +200,7 @@ bane.save
 jb = Role.new
 jb["movie_id"] = batman_3["id"]
 jb["actor_id"] = Actor.find_by({"name" => "Joseph Gordon-Levitt"})["id"]
-jb["character_name"] = "Bane"
+jb["character_name"] = "John Blake"
 jb.save
 
 sk = Role.new
@@ -222,8 +222,8 @@ movies = Movie.all
 for movie in movies
     title = movie["title"]
     year = movie["year_released"]
-    rated = movie ["rated"]
-    studio = movie["studio_id"]
+    rated = movie["rated"]
+    studio = Studio.find_by({"id" => movie["studio_id"]})["name"]
     puts "#{title} #{year} #{rated} #{studio}"
 end
 
@@ -232,6 +232,15 @@ puts ""
 puts "Top Cast"
 puts "========"
 puts ""
+
+cast_members = Role.all
+
+for cast in cast_members
+    movie_title = Movie.find_by({"id" => cast["movie_id"]})["title"]
+    actor_name = Actor.find_by({"id" => cast["actor_id"]})["name"]
+    character_name = cast["character_name"]
+    puts "#{movie_title} #{actor_name} #{character_name}"
+end
 
 # Query the cast data and loop through the results to display the cast output for each movie.
 # TODO!
