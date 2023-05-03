@@ -77,10 +77,57 @@ Role.destroy_all
 
 # Generate models and tables, according to the domain model.
 # TODO!
+# generated using rails generate model and rails db:migrate on terminal and on respective files
 
 # Insert data into the database that reflects the sample data shown above.
 # Do not use hard-coded foreign key IDs.
 # TODO!
+
+warner = Studio.new
+warner["name"] = "Warner Bros."
+warner.save
+
+batman_1 = Movie.new
+batman_1["title"] = "Batman Begins"
+batman_1["year_released"] = 2005
+batman_1["rated"] = "PG-13"
+batman_1["studio_id"] = warner ["id"]
+batman_1.save
+
+batman_2 = Movie.new
+batman_2["title"] = "The Dark Knight"
+batman_2["year_released"] = 2008
+batman_2["rated"] = "PG-13"
+batman_2["studio_id"] = warner ["id"]
+batman_2.save
+
+batman_3 = Movie.new
+batman_3["title"] = "The Dark Knight Rises"
+batman_3["year_released"] = 2012
+batman_3["rated"] = "PG-13"
+batman_3["studio_id"] = warner ["id"]
+batman_3.save
+
+actor_names = ["Christian Bale", "Michael Caine", "Liam Neeson", "Katie Holmes", "Gary Oldman", "Heath Ledger", "Aaron Eckhart", "Maggie Gyllenhaal", "Tom Hardy", "Joseph Gordon-Levitt", "Anne Hathaway"]
+
+for name in actor_names
+    actor = Actor.new
+    actor["name"] = name
+    actor.save
+end
+
+bw = Role.new
+bw["movie_id"] = batman_1["id"]
+bw["actor_id"] = Actor.find_by({"name" -> "Christian Bale"})
+bw["character_name"] = "Bruce Wayne"
+bw.save
+
+al = Role.new
+al["movie_id"] = batman_1["id"]
+al["actor_id"] = Actor.find_by({"name" -> "Michael Caine"})
+al["character_name"] = "Alfred"
+al.save
+
 
 # Prints a header for the movies output
 puts "Movies"
@@ -88,7 +135,16 @@ puts "======"
 puts ""
 
 # Query the movies data and loop through the results to display the movies output.
-# TODO!
+
+movies = Movie.all
+
+for movie in movies
+    title = movie["title"]
+    year = movie["year_released"]
+    rated = movie ["rated"]
+    studio = movie["studio"]
+    puts "#{title} #{year} #{rated} #{studio}"
+end
 
 # Prints a header for the cast output
 puts ""
